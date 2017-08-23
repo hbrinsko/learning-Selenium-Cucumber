@@ -6,13 +6,13 @@ Given(/^We navigate to the quiz page$/) do
   driver.navigate.to "https://www.buzzfeed.com/amandamaeh/pick-some-shows-to-binge-watch-and-well-tell-you-rles"
 end
 
-When(/^in the HBO question we choose Thrones$/) do
-  answer = driver.find_element(:xpath => "//*[@id='mod-quiz-personality-1']/ol/li[1]/div/div[1]/div[1]/div")
+When(/^in the HBO question we choose "(.*?)"$/) do |word|
+  answer = driver.find_element(:xpath => word)
   answer.click()
 end
 
-When(/^in the Netflix question we choose Orange$/)do
-  answer = driver.find_element(:xpath => "//*[@id='mod-quiz-personality-1']/ol/li[2]/div/div[1]/div[1]/div")
+When(/^in the Netflix question we choose "([^"]*)"$/) do |word|
+  answer = driver.find_element(:xpath => word)
   answer.click()
 end
 
@@ -31,28 +31,8 @@ When(/^in the Other question we choose 100$/)do
   answer.click()
 end
 
-Then(/^the quiz result is a Brave New World$/)do
- wait.until {
-    results = driver.find_elements(:xpath => "//*[@id='mod-quiz-personality-1']/section/article[2]/header/span/i")
-    }
-end
-
-When(/^in the HBO question we choose BLL$/) do
-  answer = driver.find_element(:xpath => "//*[@id='mod-quiz-personality-1']/ol/li[1]/div/div[1]/div[1]/div")
-  answer.click()
-end
-
-When(/^in the Netflix question we choose Master$/) do
-  answer = driver.find_element(:xpath => "//*[@id='mod-quiz-personality-1']/ol/li[1]/div/div[1]/div[1]/div")
-  answer.click()
-end
-
-When(/^in the Binge question we choose West$/) do
-  answer = driver.find_element(:xpath => "//*[@id='mod-quiz-personality-1']/ol/li[1]/div/div[1]/div[1]/div")
-  answer.click()
-end
-
-When(/^in the Other question we choose Veep$/) do
-  answer = driver.find_element(:xpath => "//*[@id='mod-quiz-personality-1']/ol/li[1]/div/div[1]/div[1]/div")
-  answer.click()
+Then(/^the quiz result is "([^"]*)"$/) do |word|
+  quiz_results = driver.find_element(:css => "#mod-quiz-personality-1 > section > article:nth-child(#{word}) > header > span > i")
+  #p quiz_results.text
+    
 end
